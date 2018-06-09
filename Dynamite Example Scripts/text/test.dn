@@ -1,0 +1,26 @@
+(
+    (define func ()
+        (
+            (call print "Password: ")
+            (define x (call input))
+            (define password "password")
+            
+            (call if (call equal x password)
+                (function (
+                    (call print "You may enter!")
+                    (call input)
+                    (return 0)
+                    ))
+                )
+                
+            (call if (call notequal x password)
+                (function (
+                    (call print (call add "Nope lmao" endl))
+                    (return 1)
+                    ))
+                )
+        )
+    )
+
+    (call while func)
+)

@@ -1,0 +1,14 @@
+(
+    (call udp.Connect "127.0.0.1" "\8080")
+    (call print "Connected to server.")
+    (call print endl)
+    (call while
+        (function(
+            (call udp.ClientSend "Hello world from client!")
+            (call print "got: ")
+            (call print (call udp.ClientReceive))
+            (call print endl)
+            (return 1)
+        ))
+    )
+)

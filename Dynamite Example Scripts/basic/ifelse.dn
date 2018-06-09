@@ -1,0 +1,61 @@
+(
+    (define main ()
+        (
+            (define password "password")
+            (call print "\>>")
+            (define s (call input))
+            (call ifelse (call equal s password)
+                (function
+                    (
+                        (call println "If!")
+                    )
+                )
+                (function
+                    (
+                        (call println "Else!")
+                    )
+                )
+            )
+        )
+    )
+
+    (lambda 
+        (function ((call main)))
+    )
+
+    ; (define test (a)
+    ;     (
+    ;         (call println (call add a 1))  
+    ;     )
+    ; )
+
+    ; (call test 1.5)
+
+    ; (define test ()
+    ;     (
+    ;         (return 1)
+    ;         (return 1.5)
+    ;         (return "Your mom")
+    ;         (return (function(
+    ;             (call println "Hello world!")
+    ;         )))
+    ;     )
+    ; )
+    ; (call test)
+    ; (lambda)
+    ; (call println)
+    ; (call println)
+    ; (call add 1.25)
+    ; (call println)
+
+    ; (define Function ()
+    ;     (
+    ;         (return (function(
+    ;             (call print "Clojure!")
+    ;         )))
+    ;     )
+    ; )
+
+    ; (lambda (call Function))
+
+)

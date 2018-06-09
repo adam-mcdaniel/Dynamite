@@ -1,0 +1,10 @@
+(
+    (define main ()
+        (
+            (call print "Hello world!")
+            (call input)
+        )
+    )
+
+    (call main)
+)

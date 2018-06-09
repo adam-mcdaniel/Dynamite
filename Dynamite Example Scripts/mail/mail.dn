@@ -1,0 +1,3 @@
+(
+    (call mail.SendMail "adamthekiwi99@gmail.com" "adamthekiwi99@gmail.com" "Hello world!" "Password")
+)

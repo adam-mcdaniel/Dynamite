@@ -1,0 +1,19 @@
+(
+    (define Class ()
+        (
+            (define self @)
+            (define method (s)
+                (
+                    (call print s)
+                )
+            )
+            (define self method method)
+            (return self)
+        )
+    )
+
+    (define c (call Class))
+
+    (call (dot c method) "Im a method!")
+    (call input)
+)

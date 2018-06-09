@@ -1,0 +1,78 @@
+(
+    ; (define L (call lists.List))
+    ; (define L (call lists.Append L "Adam"))
+    ; (define L (call lists.Append L "Sarah"))
+    ; (define L (call lists.Append L "Thombo"))
+    ; (define L (call lists.Append L "Addison"))
+    ; (define n (call lists.Length L))
+    ; (call lists.Items L)
+    ; (call print)
+    ; (call print)
+    ; (call print)
+    ; (call print)
+    ; (call print endl)
+    ; (define L (call lists.Pop L))
+    ; (define L (call lists.Append L "Kip"))
+    ; (call lists.Items L)
+    ; (call print)
+    ; (call print)
+    ; (call print)
+    ; (call print)
+    ; (call print endl)
+
+    
+    (define List ()
+        (
+            (define self @)
+            (define self list (call lists.List))
+            (define append
+                (self a)
+                (
+                    (define self list (call lists.Append (dot self list) a))
+                    (return self)
+                )
+            )
+            (define self append append)
+            (define pop
+                (self)
+                (
+                    (define self list (call lists.Pop (dot self list)))
+                    (return self)
+                )
+            )
+            (define self pop pop)
+            (define len
+                (self)
+                (
+                    (call lists.Length (dot self list))
+                )
+            )
+            (define self len len)
+            (define items
+                (self)
+                (
+                    (call lists.Items (dot self list))
+                )
+            )
+            (define self items items)
+            (define index
+                (self n)
+                (
+                    (call lists.Index (dot self list) n)
+                )
+            )
+            (define self index index)
+            (return self)
+        )
+    )
+
+
+    ; (define L (call List))
+    ; (define L (call (dot L append) L "Adam"))
+    ; (call for "x" L
+    ;     (function (
+    ;         (call print x)
+    ;         (call (dot L append) L x)
+    ;     ))
+    ; )
+)

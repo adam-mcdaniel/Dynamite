@@ -1,0 +1,3 @@
+(
+    (call print (call random.randint 0 1))
+)

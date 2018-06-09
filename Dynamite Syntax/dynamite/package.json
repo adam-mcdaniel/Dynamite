@@ -1,0 +1,21 @@
+{
+	"name": "dynamite",
+	"displayName": "%displayName%",
+	"description": "%description%",
+	"version": "1.0.0",
+	"publisher": "vscode",
+	"engines": { "vscode": "*" },
+	"contributes": {
+		"languages": [{
+			"id": "dynamite",
+			"aliases": ["Dynamite", "dynamite"],
+			"extensions": [".dn", ".dynamite"],
+			"configuration": "./language-configuration.json"
+		}],
+		"grammars": [{
+			"language": "dynamite",
+			"scopeName": "source.dynamite",
+			"path": "./syntaxes/dynamite.tmLanguage.json"
+		}]
+	}
+}

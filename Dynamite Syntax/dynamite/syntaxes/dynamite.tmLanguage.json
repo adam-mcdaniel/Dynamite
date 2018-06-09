@@ -1,0 +1,435 @@
+{
+	"information_for_contributors": [
+		"This file has been converted from https://github.com/atom/language-dynamite/blob/master/grammars/dynamite.cson",
+		"If you want to provide a fix or improvement, please create a pull request against the original repository.",
+		"Once accepted there, we are happy to receive an update request."
+	],
+	"version": "https://github.com/atom/language-dynamite/commit/ecc790326bc8e14220e4d2d72a392a30876c3219",
+	"name": "dynamite",
+	"scopeName": "source.dynamite",
+	"patterns": [
+		{
+			"include": "#comment"
+		},
+		{
+			"include": "#shebang-comment"
+		},
+		{
+			"include": "#quoted-sexp"
+		},
+		{
+			"include": "#sexp"
+		},
+		{
+			"include": "#keyfn"
+		},
+		{
+			"include": "#string"
+		},
+		{
+			"include": "#vector"
+		},
+		{
+			"include": "#set"
+		},
+		{
+			"include": "#map"
+		},
+		{
+			"include": "#regexp"
+		},
+		{
+			"include": "#var"
+		},
+		{
+			"include": "#constants"
+		},
+		{
+			"include": "#dynamic-variables"
+		},
+		{
+			"include": "#metadata"
+		},
+		{
+			"include": "#namespace-symbol"
+		},
+		{
+			"include": "#symbol"
+		}
+	],
+	"repository": {
+		"comment": {
+			"begin": "(?<!\\\\);",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.comment.dynamite"
+				}
+			},
+			"end": "$",
+			"name": "comment.line.semicolon.dynamite"
+		},
+		"constants": {
+			"patterns": [
+				{
+					"match": "(nil)(?=(\\s|\\)|\\]|\\}))",
+					"name": "constant.language.nil.dynamite"
+				},
+				{
+					"match": "(true|false)",
+					"name": "constant.language.boolean.dynamite"
+				},
+				{
+					"match": "(-?\\d+/\\d+)",
+					"name": "constant.numeric.ratio.dynamite"
+				},
+				{
+					"match": "(-?\\d+[rR][0-9a-zA-Z]+)",
+					"name": "constant.numeric.arbitrary-radix.dynamite"
+				},
+				{
+					"match": "(-?0[xX][0-9a-fA-F]+)",
+					"name": "constant.numeric.hexadecimal.dynamite"
+				},
+				{
+					"match": "(-?0\\d+)",
+					"name": "constant.numeric.octal.dynamite"
+				},
+				{
+					"match": "(-?\\d+\\.\\d+([eE][+-]?\\d+)?M)",
+					"name": "constant.numeric.bigdecimal.dynamite"
+				},
+				{
+					"match": "(-?\\d+\\.\\d+([eE][+-]?\\d+)?)",
+					"name": "constant.numeric.double.dynamite"
+				},
+				{
+					"match": "(-?\\d+N)",
+					"name": "constant.numeric.bigint.dynamite"
+				},
+				{
+					"match": "(-?\\d+)",
+					"name": "constant.numeric.long.dynamite"
+				},
+				{
+					"include": "#keyword"
+				}
+			]
+		},
+		"keyword": {
+			"match": "(?<=(\\s|\\(|\\[|\\{)):[a-zA-Z0-9\\#\\.\\-\\_\\:\\+\\=\\>\\<\\/\\!\\?\\*]+(?=(\\s|\\)|\\]|\\}|\\,))",
+			"name": "constant.keyword.dynamite"
+		},
+		"keyfn": {
+			"patterns": [
+				{
+					"match": "(?<=(\\s|\\(|\\[|\\{))(if(-[-a-z\\?]*)?|when(-[-a-z]*)?|for(-[-a-z]*)?|cond|do|let(-[-a-z\\?]*)?|binding|loop|recur|fn|throw[a-z\\-]*|try|catch|finally|([a-z]*case))(?=(\\s|\\)|\\]|\\}))",
+					"name": "storage.control.dynamite"
+				},
+				{
+					"match": "(?<=(\\s|\\(|\\[|\\{))(declare-?|(in-)?ns|import|use|require|load|compile|(def[a-z\\-]*))(?=(\\s|\\)|\\]|\\}))",
+					"name": "keyword.control.dynamite"
+				}
+			]
+		},
+		"dynamic-variables": {
+			"match": "\\*[\\w\\.\\-\\_\\:\\+\\=\\>\\<\\!\\?\\d]+\\*",
+			"name": "meta.symbol.dynamic.dynamite"
+		},
+		"map": {
+			"begin": "(\\{)",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.section.map.begin.dynamite"
+				}
+			},
+			"end": "(\\}(?=[\\}\\]\\)\\s]*(?:;|$)))|(\\})",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.section.map.end.trailing.dynamite"
+				},
+				"2": {
+					"name": "punctuation.section.map.end.dynamite"
+				}
+			},
+			"name": "meta.map.dynamite",
+			"patterns": [
+				{
+					"include": "$self"
+				}
+			]
+		},
+		"metadata": {
+			"patterns": [
+				{
+					"begin": "(\\^\\{)",
+					"beginCaptures": {
+						"1": {
+							"name": "punctuation.section.metadata.map.begin.dynamite"
+						}
+					},
+					"end": "(\\}(?=[\\}\\]\\)\\s]*(?:;|$)))|(\\})",
+					"endCaptures": {
+						"1": {
+							"name": "punctuation.section.metadata.map.end.trailing.dynamite"
+						},
+						"2": {
+							"name": "punctuation.section.metadata.map.end.dynamite"
+						}
+					},
+					"name": "meta.metadata.map.dynamite",
+					"patterns": [
+						{
+							"include": "$self"
+						}
+					]
+				},
+				{
+					"begin": "(\\^)",
+					"end": "(\\s)",
+					"name": "meta.metadata.simple.dynamite",
+					"patterns": [
+						{
+							"include": "#keyword"
+						},
+						{
+							"include": "$self"
+						}
+					]
+				}
+			]
+		},
+		"quoted-sexp": {
+			"begin": "(['``]\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.section.expression.begin.dynamite"
+				}
+			},
+			"end": "(\\))$|(\\)(?=[\\}\\]\\)\\s]*(?:;|$)))|(\\))",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.section.expression.end.trailing.dynamite"
+				},
+				"2": {
+					"name": "punctuation.section.expression.end.trailing.dynamite"
+				},
+				"3": {
+					"name": "punctuation.section.expression.end.dynamite"
+				}
+			},
+			"name": "meta.quoted-expression.dynamite",
+			"patterns": [
+				{
+					"include": "$self"
+				}
+			]
+		},
+		"regexp": {
+			"begin": "#\"",
+			"beginCaptures": {
+				"0": {
+					"name": "punctuation.definition.regexp.begin.dynamite"
+				}
+			},
+			"end": "\"",
+			"endCaptures": {
+				"0": {
+					"name": "punctuation.definition.regexp.end.dynamite"
+				}
+			},
+			"name": "string.regexp.dynamite",
+			"patterns": [
+				{
+					"include": "#regexp_escaped_char"
+				}
+			]
+		},
+		"regexp_escaped_char": {
+			"match": "\\\\.",
+			"name": "constant.character.escape.dynamite"
+		},
+		"set": {
+			"begin": "(\\#\\{)",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.section.set.begin.dynamite"
+				}
+			},
+			"end": "(\\}(?=[\\}\\]\\)\\s]*(?:;|$)))|(\\})",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.section.set.end.trailing.dynamite"
+				},
+				"2": {
+					"name": "punctuation.section.set.end.dynamite"
+				}
+			},
+			"name": "meta.set.dynamite",
+			"patterns": [
+				{
+					"include": "$self"
+				}
+			]
+		},
+		"sexp": {
+			"begin": "(\\()",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.section.expression.begin.dynamite"
+				}
+			},
+			"end": "(\\))$|(\\)(?=[\\}\\]\\)\\s]*(?:;|$)))|(\\))",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.section.expression.end.trailing.dynamite"
+				},
+				"2": {
+					"name": "punctuation.section.expression.end.trailing.dynamite"
+				},
+				"3": {
+					"name": "punctuation.section.expression.end.dynamite"
+				}
+			},
+			"name": "meta.expression.dynamite",
+			"patterns": [
+				{
+					"begin": "(?<=\\()(ns|declare|def[\\w\\d._:+=><!?*-]*|[\\w._:+=><!?*-][\\w\\d._:+=><!?*-]*/def[\\w\\d._:+=><!?*-]*)\\s+",
+					"beginCaptures": {
+						"1": {
+							"name": "keyword.control.dynamite"
+						}
+					},
+					"end": "(?=\\))",
+					"name": "meta.definition.global.dynamite",
+					"patterns": [
+						{
+							"include": "#metadata"
+						},
+						{
+							"include": "#dynamic-variables"
+						},
+						{
+							"match": "([a-zA-Z\\.\\-\\_\\+\\=\\>\\<\\!\\?\\*][\\w\\.\\-\\_\\:\\+\\=\\>\\<\\!\\?\\*\\d]*)",
+							"name": "entity.global.dynamite"
+						},
+						{
+							"include": "$self"
+						}
+					]
+				},
+				{
+					"include": "#keyfn"
+				},
+				{
+					"include": "#constants"
+				},
+				{
+					"include": "#vector"
+				},
+				{
+					"include": "#map"
+				},
+				{
+					"include": "#set"
+				},
+				{
+					"include": "#sexp"
+				},
+				{
+					"match": "(?<=\\()(.+?)(?=\\s|\\))",
+					"captures": {
+						"1": {
+							"name": "entity.name.function.dynamite"
+						}
+					},
+					"patterns": [
+						{
+							"include": "$self"
+						}
+					]
+				},
+				{
+					"include": "$self"
+				}
+			]
+		},
+		"shebang-comment": {
+			"begin": "^(#!)",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.definition.comment.shebang.dynamite"
+				}
+			},
+			"end": "$",
+			"name": "comment.line.shebang.dynamite"
+		},
+		"string": {
+			"begin": "(?<!\\\\)(\")",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.definition.string.begin.dynamite"
+				}
+			},
+			"end": "(\")",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.definition.string.end.dynamite"
+				}
+			},
+			"name": "string.quoted.double.dynamite",
+			"patterns": [
+				{
+					"match": "\\\\.",
+					"name": "constant.character.escape.dynamite"
+				}
+			]
+		},
+		"namespace-symbol": {
+			"patterns": [
+				{
+					"match": "([a-zA-Z\\.\\-\\_\\+\\=\\>\\<\\!\\?\\*][\\w\\.\\-\\_\\:\\+\\=\\>\\<\\!\\?\\*\\d]*)/",
+					"captures": {
+						"1": {
+							"name": "meta.symbol.namespace.dynamite"
+						}
+					}
+				}
+			]
+		},
+		"symbol": {
+			"patterns": [
+				{
+					"match": "([@a-zA-Z\\.\\-\\_\\+\\=\\>\\<\\!\\?\\*][\\w\\.\\-\\_\\:\\+\\=\\>\\<\\!\\?\\*\\d]*)",
+					"name": "meta.symbol.dynamite"
+				}
+			]
+		},
+		"var": {
+			"match": "(?<=(\\s|\\(|\\[|\\{)\\#)'[a-zA-Z0-9\\.\\-\\_\\:\\+\\=\\>\\<\\/\\!\\?\\*]+(?=(\\s|\\)|\\]|\\}))",
+			"name": "meta.var.dynamite"
+		},
+		"vector": {
+			"begin": "(\\[)",
+			"beginCaptures": {
+				"1": {
+					"name": "punctuation.section.vector.begin.dynamite"
+				}
+			},
+			"end": "(\\](?=[\\}\\]\\)\\s]*(?:;|$)))|(\\])",
+			"endCaptures": {
+				"1": {
+					"name": "punctuation.section.vector.end.trailing.dynamite"
+				},
+				"2": {
+					"name": "punctuation.section.vector.end.dynamite"
+				}
+			},
+			"name": "meta.vector.dynamite",
+			"patterns": [
+				{
+					"include": "$self"
+				}
+			]
+		}
+	}
+}

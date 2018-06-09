@@ -1,0 +1,17 @@
+(
+    (call print "Quick, whats 2 + 2?!")
+    (call print endl)
+    
+    (define i (call io.input_timeout 1))
+    (call if (call equal i "")
+        (function(
+            (call print "Too slow!")
+        ))
+    )
+    (call if (call equal i "4")
+        (function(
+            (call print "Thats right!")
+        ))
+    )
+    (call input)
+)

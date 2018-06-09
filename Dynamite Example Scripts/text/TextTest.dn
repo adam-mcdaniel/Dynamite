@@ -1,0 +1,78 @@
+(
+
+    (define parse (s)
+        (
+            (call if (call equal s "walk forward")
+                (function (
+                    (return "forward")
+                ))
+            )
+            (call if (call equal s "walk backward")
+                (function (
+                    (return "backward")
+                ))
+            )
+            (call if (call equal s "walk left")
+                (function (
+                    (return "left")
+                ))
+            )
+            (call if (call equal s "walk right")
+                (function (
+                    (return "right")
+                ))
+            )
+            (call if (call and (call notequal s "walk forward") 
+                     (call and (call notequal s "walk backward")
+                     (call and (call notequal s "walk left")
+                     (call notequal s "walk right"))))
+                (function (
+                    (return "idle")
+                ))
+            )
+        )
+    )
+    (define loop (x y)
+        (
+            (call print "\>")
+            (define text (call input))
+            (call if (call equal (call parse text) "forward")
+                (function (
+                    (call print "You walk forward.")
+                    (define y (call add y 1))
+                ))
+            )
+            (call if (call equal (call parse text) "backward")
+                (function (
+                    (call print "You walk backward.")
+                    (define y (call sub y 1))
+                ))
+            )
+            (call if (call equal (call parse text) "left")
+                (function (
+                    (call print "You walk left.")
+                    (define x (call sub x 1))
+                ))
+            )
+            (call if (call equal (call parse text) "right")
+                (function (
+                    (call print "You walk right.")
+                    (define x (call add x 1))
+                ))
+            )
+            (call if (call equal (call parse text) "idle")
+                (function (
+                    (call print "You dont walk anywhere.")
+                ))
+            )
+            (call print endl)
+            (call print x)
+            (call print endl)
+            (call print y)
+            (call print endl)
+            (call loop x y)
+        )
+    )
+
+    (call loop 0 0)
+)

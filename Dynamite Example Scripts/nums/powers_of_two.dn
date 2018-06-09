@@ -1,0 +1,38 @@
+(
+    (define main ()
+        (
+
+            (define l (call list))
+            
+            (define l (call (dot l append) l 1))
+            (define l (call (dot l append) l 2))
+            (define l (call (dot l append) l 3))
+            (define l (call (dot l append) l 4))
+
+            
+            (call for "item" l
+                (function(
+                    (call println item)
+                ))
+            )
+
+            ; (define n 1)
+            ; (call for "x" (call range 0 50)
+            ;     (function(
+            ;         (call print "Iteration ")
+            ;         (call print x)
+            ;         (call print ": ")
+            ;         (call print n)
+            ;         (call print endl)
+            ;         (define n (call mul n 2))
+            ;     ))
+            ; )
+
+
+            ; (call print "Final answer: ")
+            ; (call print n)
+            ; (call print endl)
+        )
+    )
+    (call main)
+)

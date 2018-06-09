@@ -1,0 +1,6 @@
+(
+    (define contents (call io.ReadFile "file_ops.sun"))
+    (call print contents)
+    (call io.WriteFile "File IO works!!!" "testing.txt")
+    (define s @)
+)
