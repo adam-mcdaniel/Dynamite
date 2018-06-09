@@ -1,3 +1,0 @@
-(
-    (call os.System "systeminfo" "> info.txt")
-)
